@@ -1,0 +1,20 @@
+main {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.authorization-form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.authorization-form input {
+    margin: 10px 0;
+    padding: 10px;
+    border: unset;
+    border-bottom: 2px solid #e3e3e3;
+    outline: none;
+}

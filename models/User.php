@@ -3,7 +3,7 @@
 class User
 {
     /*
-    username - required , unique (min 6, max 50)
+    username - required, unique (min 6, max 50)
     email - required, unique
     password - required (min 8, max 50)
     profile picture
@@ -37,7 +37,7 @@ class User
             array_push($errors, "Username length must be at least 6 characters");
         }
         else if (strlen($username) > 50) {
-            array_push($errors, "Username length must be no more than 6 characters");
+            array_push($errors, "Username length must be no more than 50 characters");
         }
         else if (self::parameterIsUnique("username", $username) == false) {
             array_push($errors, "Username must be unique");

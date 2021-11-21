@@ -1,0 +1,64 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content {
+  margin: 2vmax;
+  padding: 1vmax;
+  width: 80vw;
+  background-color: white;
+  box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.book {
+  display: flex;
+  flex-direction: row;
+}
+
+.img-book {
+  width: 20%;
+  margin-right: 1vmax;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: var(--navbar-background);
+}
+
+.comment {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment .name {
+  color: var(--navbar-background);
+  margin-right: 1vmax;
+  font-weight: bold;
+}
+
+.comment .text {
+  color: var(--secondary-text-color);
+}
+
+@media screen and (max-width: 769px) {
+  .content {
+    width: 90vw;
+  }
+
+  .book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img-book {
+    width: 80%;
+  }
+}
