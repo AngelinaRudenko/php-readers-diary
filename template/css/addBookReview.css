@@ -1,0 +1,32 @@
+main {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.book-review-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.book-review-form input {
+    width: 30%;
+}
+/*TODO: css for options*/
+.book-review-form input, textarea, select {
+    margin: 10px 0;
+    padding: 10px;
+    border: unset;
+    border-bottom: 2px solid #e3e3e3;
+    outline: none;
+}
+
+.select-section {
+    display: inline-block;
+}
+
+select {
+    width: 50%;
+}

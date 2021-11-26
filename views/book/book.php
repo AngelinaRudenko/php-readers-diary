@@ -1,28 +1,24 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-    <link rel="stylesheet" href="/template/css/book.css" />
+    <link rel="stylesheet" href="/template/css/book.css"/>
     <title>My books</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 
     <div class="content">
         <section class="book">
-            <img
-                class="img-book"
-                src="https://images.unsplash.com/photo-1526512340740-9217d0159da9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dmVydGljYWx8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80"
-                alt=""
-            />
+            <img class="img-book"
+                 src="<?= isset($_SESSION['book']['bookCoverImage']) ?
+                     $_SESSION['book']['bookCoverImage'] : '/template/defaultBookCoverImage.jpg' ?>"
+                 alt=""/>
             <div class="card-content">
-                <p>
-                    <strong class="book-name">Changes Are</strong>
-                    <span>by Richard Russo</span>
-                </p>
+                <h2 class="book-name"><?= htmlspecialchars($_SESSION['book']['name']) ?></h2>
+                <span>by <?= htmlspecialchars($_SESSION['book']['author']) ?></span>
+                <!--                TODO: rating-->
                 <p>Rating: 1.2</p>
-                <p class="book-sum">
-                    Readers of all ages and walks of life have drawn inspiration and
-                    empowerment from Elizabeth Gilbert’s books for years.
-                </p>
+                <p class="book-sum"><?= htmlspecialchars($_SESSION['book']['description']) ?></p>
                 <?php if (isset($_SESSION['userAuthorized']) and $_SESSION['userAuthorized'] == TRUE) {
-                    echo '<button>Mark as read</button>';
-                }?>
+//                    TODO
+                    echo '<a class="button">Mark as read</a>';
+                } ?>
             </div>
         </section>
         <?php if (isset($_SESSION['userAuthorized']) and $_SESSION['userAuthorized'] == TRUE) {
@@ -30,7 +26,7 @@
             echo '<h2>My feedback</h2>';
             // TODO: feedback
             echo '</section>';
-        }?>
+        } ?>
         <section class="comments">
             <h2>Comments</h2>
             <div class="comment">
