@@ -5,7 +5,7 @@ class Book
     public static function getBook($id)
     {
         $books = [];
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "SELECT `bookId`, `name`, `author`, `description`, `bookCoverImage` FROM `book` WHERE `bookId` = ?";
 
         mysqli_begin_transaction($connection);
@@ -39,7 +39,7 @@ class Book
     public static function getCommonBooks()
     {
         $books = [];
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "SELECT `bookId`, `name`, `author`, `description` , `bookCoverImage` FROM `book`";
 
         $result = mysqli_query($connection, $sql);

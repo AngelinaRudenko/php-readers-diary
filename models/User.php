@@ -12,7 +12,7 @@ class User
     public static function register($username, $email, $password, $path)
     {
         $success = FALSE;
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "INSERT INTO `user` (`username`, `email`, `password`, `profilePicture`) 
                 VALUES (?, ?, ?, ?)";
 
@@ -83,7 +83,7 @@ class User
     private static function parameterIsUnique($parameterName, $parameter)
     {
         $success = FALSE;
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "SELECT count(`userId`) FROM `user` WHERE `$parameterName` = ?";
 
         mysqli_begin_transaction($connection);
@@ -109,7 +109,7 @@ class User
     public static function authorize($email, $password)
     {
         $success = FALSE;
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "SELECT `userId` FROM `user` WHERE `email` = ? AND `password` = ?";
 
         mysqli_begin_transaction($connection);

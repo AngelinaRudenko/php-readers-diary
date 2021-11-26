@@ -5,7 +5,7 @@ class Review
     public static function getUserBookReviews($userId)
     {
         $books = [];
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "SELECT `userBook`.`userBookId`, `userBook`.`bookId`, `userBook`.`dateRead`, `userBook`.`grade`, 
                 `userBook`.`comment`, `userBook`.`note`, `book`.`name`, `book`.`author`, `book`.`description` 
                 FROM `userBook` 
@@ -43,7 +43,7 @@ class Review
     public static function saveReview($userId, $bookId, $dateRead, $grade, $comment, $note)
     {
         $success = FALSE;
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "INSERT INTO `userBook`(`userId`, `bookId`, `dateRead`, `grade`, `comment`, `note`) 
                 VALUES (?,?,?,?,?,?)";
 
@@ -66,7 +66,7 @@ class Review
                                                 $bookDescription, $bookCover)
     {
         $success = FALSE;
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
 
         $sqlInsertBook = "INSERT INTO `book`(`name`, `author`, `description`, `bookCoverImage`) 
                     VALUES (?,?,?,?)";
@@ -97,7 +97,7 @@ class Review
 
     public static function deleteReview($reviewId)
     {
-        $connection = DB::createConnection();
+        $connection = Db::createConnection();
         $sql = "DELETE FROM `userBook` WHERE `userBookId` = ?";
         mysqli_begin_transaction($connection);
         try {
