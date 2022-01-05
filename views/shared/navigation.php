@@ -2,11 +2,19 @@
 <body>
 <div class="header-panel">
     <header>
-        <a href="/commonBookList"><h1>Reader's diary</h1></a>
+        <a href="/"><h1>Reader's diary</h1></a>
     </header>
     <nav>
-        <?php if (isset($_SESSION['userAuthorized']) and $_SESSION['userAuthorized']["isAuthorized"] == TRUE) : ?>
-            <a href="/myBooks">My books</a>
+        <select id="colorTheme" class="nav-select">
+            <option value="lightTheme"
+                <?= !isset($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'lightTheme' ? 'selected' : '' ?>
+            >Light theme</option>
+            <option value="darkTheme"
+                <?= isset($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'darkTheme' ? 'selected' : '' ?>
+            >Dark theme</option>
+        </select>
+        <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']["isAuthorized"]) : ?>
+            <a href="/reviews">My reviews</a>
             <a href="/logout">Log out</a>
         <?php else : ?>
             <a href="/register">Register</a>

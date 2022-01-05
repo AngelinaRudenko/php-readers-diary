@@ -30,6 +30,7 @@ class Router
                 $actionName = 'action' . ucfirst(array_shift($segments));
                 $parameters = $segments;
                 $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+
                 if (file_exists($controllerFile)) {
                     include_once($controllerFile);
                 }

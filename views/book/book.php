@@ -5,43 +5,45 @@
 
     <div class="content">
         <section class="book">
-            <img class="img-book"
-                 src="<?= isset($_SESSION['book']['bookCoverImage']) ?
-                     $_SESSION['book']['bookCoverImage'] : '/template/defaultBookCoverImage.jpg' ?>"
-                 alt=""/>
+            <img class="img-book" alt="" src="<?= isset($_SESSION['book']['bookCoverImage']) ?
+                 htmlspecialchars('/uploads/'.$_SESSION['book']['bookCoverImage']) :
+                 htmlspecialchars('/template/defaultBookCoverImage.jpg') ?>"/>
             <div class="card-content">
                 <h2 class="book-name"><?= htmlspecialchars($_SESSION['book']['name']) ?></h2>
                 <span>by <?= htmlspecialchars($_SESSION['book']['author']) ?></span>
-                <!--                TODO: rating-->
-                <p>Rating: 1.2</p>
+                <p>Rating: <?= $_SESSION['book']['avgRating'] ?></p>
                 <p class="book-sum"><?= htmlspecialchars($_SESSION['book']['description']) ?></p>
-                <?php if (isset($_SESSION['userAuthorized']) and $_SESSION['userAuthorized'] == TRUE) {
-//                    TODO
-                    echo '<a class="button">Mark as read</a>';
+                <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized'] &&
+                    !isset($_SESSION['review'])) {
+                    $_SESSION['readBookId'] = $_SESSION['book']['bookId'];
+                    echo '<a href="/addReview" class="button">Mark as read</a>';
                 } ?>
             </div>
         </section>
-        <?php if (isset($_SESSION['userAuthorized']) and $_SESSION['userAuthorized'] == TRUE) {
-            echo '<section class="feedback">';
-            echo '<h2>My feedback</h2>';
-            // TODO: feedback
-            echo '</section>';
-        } ?>
-        <section class="comments">
-            <h2>Comments</h2>
-            <div class="comment">
-                <p class="name">Name</p>
-                <p class="text">Comment</p>
-            </div>
-            <div class="comment">
-                <p class="name">Name</p>
-                <p class="text">Comment</p>
-            </div>
-            <div class="comment">
-                <p class="name">Name</p>
-                <p class="text">Comment</p>
-            </div>
-        </section>
+        <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized'] && isset($_SESSION['review']) && !empty($_SESSION['review'])): ?>
+            <section class="feedback">
+                <h2>My feedback</h2>
+                <p><strong class="book-name">Date read:</strong> <?= $_SESSION['review']['dateRead'] ?></p>
+                <p><strong class="book-name">My grade:</strong> <?= $_SESSION['review']['grade'] ?></p>
+                <p><strong class="book-name">Comment:</strong> <?= htmlspecialchars($_SESSION['review']['comment']) ?></p>
+                <p><strong class="book-name">Note:</strong> <?= htmlspecialchars($_SESSION['review']['note']) ?></p>
+            </section>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['comments']) && !empty($_SESSION['comments'])): ?>
+            <section class="comments">
+                <h2>Comments</h2>
+                <?php foreach ($_SESSION['comments'] as $comment): ?>
+                <div class="comment">
+                    <p class="name"><?= htmlspecialchars($comment['username']) ?></p>
+                    <p class="text"><?= htmlspecialchars($comment['comment']) ?></p>
+                </div>
+                <?php endforeach; ?>
+            </section>
+        <?php endif; ?>
     </div>
 
-<?php include ROOT . '/views/shared/footer.php'; ?>
+<?php
+    unset($_SESSION['review']);
+    unset($_SESSION['book']);
+    include ROOT . '/views/shared/footer.php';
+?>

@@ -1,0 +1,61 @@
+main {
+    text-align: center;
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    flex: 0 1 calc(50% - 0.5em);
+    margin: 1rem 0.25em;
+    border-radius: 4px;
+    color: var(--secondary-text-color);
+    padding: 1vmax;
+    display: flex;
+    text-align: left;
+    align-items: center;
+}
+
+.card:hover {
+    background-color: var(--on-hover-color);
+    box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover .img-book {
+    transform: scale(1.04);
+}
+
+.img-book {
+    max-height: 20vmax;
+    width: 15vmax;
+    transition: 0.3s ease;
+}
+
+.card-content {
+    padding: 1vmax;
+}
+
+.book-name {
+    color: var(--primary-text-color);
+    font-weight: 1000;
+}
+
+.book-sum {
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+}
+
+@media screen and (max-width: 769px) {
+    .card {
+        flex: 0 1 100%;
+        background-color: var(--on-hover-color);
+        box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.1);
+    }
+}

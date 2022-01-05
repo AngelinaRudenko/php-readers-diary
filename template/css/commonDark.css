@@ -8,15 +8,15 @@
 :root {
     --body-font: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-    --background-color: #f2f5ff;
-    --navbar-background: #275efe;
-    --primary-text-color: #2b3044;
-    --navbar-text-color: white;
-    --footer-background-color: #555b77;
-    --footer-text-color: #e1e6f9;
-    --secondary-text-color: #494f69;
+    --background-color: #3d446c;
+    --navbar-background: #1f0875;
+    --primary-text-color: #f2f5ff;
+    --navbar-text-color: #9dbfff;
+    --footer-background-color: #1f0875;
+    --footer-text-color: #9dbfff;
+    --secondary-text-color: #8c97c5;
     --input-border: #e3e3e3;
-    --on-hover-color: white;
+    --on-hover-color: #5562a6;
 }
 
 * {
@@ -104,6 +104,8 @@ button, a.button {
 }
 
 input, textarea, select {
+    color: var(--navbar-background);
+    background-color: var(--navbar-text-color);
     margin: 10px 0;
     padding: 10px;
     border: unset;
