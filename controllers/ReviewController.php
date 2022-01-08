@@ -7,7 +7,8 @@ class ReviewController
      * @param null $page - page, if not set then null
      * @return bool - just for redirect
      */
-    public function actionGetReviews($page = null) {
+    public function actionGetReviews($page = null)
+    {
         if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
             require_once(ROOT . '/views/shared/notFount.php');
             return true;
@@ -35,7 +36,8 @@ class ReviewController
      * @param null $bookId - book id. If not set then null and will be shown Not Found message page
      * @return bool - just for redirect
      */
-    public function actionAddReview($bookId = null) {
+    public function actionAddReview($bookId = null)
+    {
         if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
             require_once(ROOT . '/views/shared/notFount.php');
             return true;
@@ -60,7 +62,8 @@ class ReviewController
      * Section for creating book will be shown.
      * @return bool - just for redirect
      */
-    public function actionAddReviewForNewBook() {
+    public function actionAddReviewForNewBook()
+    {
         if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
             require_once(ROOT . '/views/shared/notFount.php');
             return true;
@@ -77,7 +80,8 @@ class ReviewController
      * Saves new or edited review. If review was done for new book, that is not in the system, saves book too.
      * @return bool - just for redirect
      */
-    public function actionSaveReview() {
+    public function actionSaveReview()
+    {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
             require_once(ROOT . '/views/review/addEditReview.php');
             return true;
@@ -166,7 +170,7 @@ class ReviewController
         }
 
         if (isset($path)) {
-            unlink('uploads/'.$path);
+            unlink('uploads/' . $path);
         }
 
         require_once(ROOT . '/views/review/addEditReview.php');
@@ -178,7 +182,8 @@ class ReviewController
      * @param $reviewId - review id for deleting
      * @return bool - just for redirect
      */
-    public static function actionDelete($reviewId) {
+    public static function actionDelete($reviewId)
+    {
         if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
             require_once(ROOT . '/views/shared/notFount.php');
             return true;
@@ -194,7 +199,8 @@ class ReviewController
      * @param $reviewId
      * @return bool - just for redirect
      */
-    public static function actionEdit($reviewId) {
+    public static function actionEdit($reviewId)
+    {
         if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
             require_once(ROOT . '/views/shared/notFount.php');
             return true;

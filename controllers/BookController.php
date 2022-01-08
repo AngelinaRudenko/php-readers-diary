@@ -8,7 +8,8 @@ class BookController
      * @param $bookId - book id
      * @return bool - just for redirect
      */
-    public function actionGetBook($bookId = null) {
+    public function actionGetBook($bookId = null)
+    {
         $_SESSION['book'] = Book::getBook($bookId);
 
         // if book is not found, then redirect to Not Found message page
@@ -35,7 +36,8 @@ class BookController
      * @param null $page - page, if not set then null
      * @return bool - just for redirect
      */
-    public function actionGetBookList($page = null) {
+    public function actionGetBookList($page = null)
+    {
         // if page is not set, then page is first by default
         $page = empty($page) ? '1' : $page;
 

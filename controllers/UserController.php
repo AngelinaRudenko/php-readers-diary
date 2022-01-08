@@ -7,7 +7,8 @@ class UserController
      * Also refreshes the page.
      * @return bool - just for redirect
      */
-    public function actionRegister() {
+    public function actionRegister()
+    {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
             require_once(ROOT . '/views/user/register.php');
             return true;
@@ -37,7 +38,8 @@ class UserController
      * Authorizes if user entered correct email and password. Otherwise, shows errors on UI.
      * @return bool - just for redirect
      */
-    public function actionLogin() {
+    public function actionLogin()
+    {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
             require_once(ROOT . '/views/user/login.php');
             return true;
@@ -59,7 +61,8 @@ class UserController
     /**
      * User authorization of user and redirects to home page.
      */
-    public function actionLogout() {
+    public function actionLogout()
+    {
         unset($_SESSION['userAuthorized']);
         header("Location: /");
     }

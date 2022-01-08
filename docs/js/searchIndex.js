@@ -226,6 +226,26 @@ Search.appendIndex(
             "summary": "Generates\u0020WHERE\u0020clause\u0020string\u0020for\u0020sql\u0020query\u0020according\u0020to\u0020min\u0020and\u0020max\u0020rating\u0020parameters.",
             "url": "classes/Book.html#method_getWhereClauseMinMaxRating"
         },                {
+            "fqsen": "\\Image",
+            "name": "Image",
+            "summary": "",
+            "url": "classes/Image.html"
+        },                {
+            "fqsen": "\\Image\u003A\u003AresizeAndCache\u0028\u0029",
+            "name": "resizeAndCache",
+            "summary": "Resizes\u0020image\u0020and\u0020saves\u0020to\u0020cache\u0020folder.",
+            "url": "classes/Image.html#method_resizeAndCache"
+        },                {
+            "fqsen": "\\Image\u003A\u003AresizeImageForBookListPage\u0028\u0029",
+            "name": "resizeImageForBookListPage",
+            "summary": "Resizes\u0020image\u0020for\u0020book\u0020list\u0020page\u0020\u0028home\u0020page\u0029.",
+            "url": "classes/Image.html#method_resizeImageForBookListPage"
+        },                {
+            "fqsen": "\\Image\u003A\u003AresizeImageForBookPage\u0028\u0029",
+            "name": "resizeImageForBookPage",
+            "summary": "Resizes\u0020image\u0020for\u0020book\u0020page.",
+            "url": "classes/Image.html#method_resizeImageForBookPage"
+        },                {
             "fqsen": "\\Review",
             "name": "Review",
             "summary": "",
@@ -340,26 +360,6 @@ Search.appendIndex(
             "name": "authorize",
             "summary": "Doing\u0020authorization,\u0020if\u0020finds\u0020user\u0020it\u0020in\u0020database.",
             "url": "classes/User.html#method_authorize"
-        },                {
-            "fqsen": "\\Image",
-            "name": "Image",
-            "summary": "",
-            "url": "classes/Image.html"
-        },                {
-            "fqsen": "\\Image\u003A\u003AresizeAndCache\u0028\u0029",
-            "name": "resizeAndCache",
-            "summary": "Resizes\u0020image\u0020and\u0020saves\u0020to\u0020cache\u0020folder.",
-            "url": "classes/Image.html#method_resizeAndCache"
-        },                {
-            "fqsen": "\\Image\u003A\u003AresizeImageForBookListPage\u0028\u0029",
-            "name": "resizeImageForBookListPage",
-            "summary": "Resizes\u0020image\u0020for\u0020book\u0020list\u0020page\u0020\u0028home\u0020page\u0029.",
-            "url": "classes/Image.html#method_resizeImageForBookListPage"
-        },                {
-            "fqsen": "\\Image\u003A\u003AresizeImageForBookPage\u0028\u0029",
-            "name": "resizeImageForBookPage",
-            "summary": "Resizes\u0020image\u0020for\u0020book\u0020page.",
-            "url": "classes/Image.html#method_resizeImageForBookPage"
         },                {
             "fqsen": "\\",
             "name": "\\",
