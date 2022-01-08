@@ -8,6 +8,11 @@ class ReviewController
      * @return bool - just for redirect
      */
     public function actionGetReviews($page = null) {
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
+            return true;
+        }
+
         // if page is not set, then page is first by default
         $page = empty($page) ? '1' : $page;
 
@@ -31,7 +36,12 @@ class ReviewController
      * @return bool - just for redirect
      */
     public function actionAddReview($bookId = null) {
-        if (isset($bookId)) {
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
+            return true;
+        }
+
+        if (!empty($bookId)) {
             $_SESSION['readBookId'] = $bookId;
         }
 
@@ -51,6 +61,11 @@ class ReviewController
      * @return bool - just for redirect
      */
     public function actionAddReviewForNewBook() {
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
+            return true;
+        }
+
         // shows book creation section
         $_SESSION['showBooksSection'] = TRUE;
 
@@ -65,6 +80,10 @@ class ReviewController
     public function actionSaveReview() {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
             require_once(ROOT . '/views/review/addEditReview.php');
+            return true;
+        }
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
             return true;
         }
 
@@ -160,6 +179,11 @@ class ReviewController
      * @return bool - just for redirect
      */
     public static function actionDelete($reviewId) {
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
+            return true;
+        }
+
         Review::deleteReview($reviewId);
         header("Location: /reviews");
         return true;
@@ -171,6 +195,11 @@ class ReviewController
      * @return bool - just for redirect
      */
     public static function actionEdit($reviewId) {
+        if (empty($_SESSION['userAuthorized']) || !$_SESSION['userAuthorized']["isAuthorized"]) {
+            require_once(ROOT . '/views/shared/notFount.php');
+            return true;
+        }
+
         unset($_SESSION['showBooksSection']);
 
         $review = Review::getUserBookReviewById($reviewId);
