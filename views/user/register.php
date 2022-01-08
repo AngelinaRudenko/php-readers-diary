@@ -12,7 +12,7 @@
         <span id="usernameValidationError" class="small-text"></span>
         <input id="username" type="text" name="username" placeholder="Enter username"
                value="<?= !empty($username) ? htmlspecialchars($username) : ""?>"
-               pattern="^\S+[A-z\d\.]{6,50}" required>
+               pattern="^[A-z\d\.]{6,50}" required>
         <label for="email">Email <span class="required">*</span></label>
         <span id="emailValidationError" class="small-text"></span>
         <input id="email" type="email" name="email" placeholder="Enter email"

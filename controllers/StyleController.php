@@ -10,7 +10,7 @@ class StyleController
         // delete cookie
         setcookie("colorTheme", "", time() - 3600);
         // set cookie for a month
-        setcookie("colorTheme", $_POST['colorTheme'], time()+(60*60*24*30));
+        setcookie("colorTheme", $_GET['colorTheme'], time()+(60*60*24*30));
         return True;
     }
 }

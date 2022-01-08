@@ -8,14 +8,14 @@
     <title>Reader's diary</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 
-    <form id="filter" method="post" enctype="multipart/form-data">
+    <form id="filter" method="post" action="#" enctype="multipart/form-data">
         <span>Filter by rating</span>
         <span id="ratingFilterValidation" class="small-text"><?= empty($_SESSION['error']) ? '' : $_SESSION['error'] ?></span>
         <input id="minRating" type="number" name="minRating" placeholder="Min"
-               value="<?= isset($minRating) ? $minRating : "" ?>"
+               value="<?= !empty($minRating) ? $minRating : "" ?>"
                min="1" max="10" pattern="[d]{1,2}">
         <input id="maxRating" type="number" name="maxRating" placeholder="Max"
-               value="<?= isset($maxRating) ? $maxRating : "" ?>"
+               value="<?= !empty($maxRating) ? $maxRating : "" ?>"
                min="1" max="10" pattern="[d]{1,2}">
         <span>Sort by</span>
         <select id="orderBy" name="orderBy">

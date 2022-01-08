@@ -38,10 +38,17 @@ class Router
                     include_once($controllerFile);
                 }
                 $controllerObject = new $controllerName;
-                $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
-                if ($result != null) {
-                    break;
+
+                if (method_exists($controllerName, $actionName) && is_callable(array($controllerName, $actionName)))
+                {
+                    $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
+                    if ($result != null) {
+                        break;
+                    }
                 }
+
+                require_once(ROOT . '/views/shared/notFount.php');
+                break;
             }
         }
     }
