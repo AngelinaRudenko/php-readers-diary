@@ -39,11 +39,7 @@ class Router
                 }
                 $controllerObject = new $controllerName;
 
-                echo '<p>'.$controllerName.'</p>';
-                echo '<p>'.$actionName.'</p>';
-                echo '<p>'.method_exists($controllerName, $actionName).'</p>';
-                echo '<p>'.is_callable(array($controllerName, $actionName)).'</p>';
-                if (method_exists($controllerName, $actionName) && is_callable(array($controllerName, $actionName)))
+                if (method_exists($controllerName, $actionName))
                 {
                     $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
                     if ($result != null) {
