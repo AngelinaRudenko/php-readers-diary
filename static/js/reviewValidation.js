@@ -1,24 +1,24 @@
 // validates date read when changed
 let dateRead = document.getElementById('dateRead');
-dateRead.addEventListener("change", function() {
+dateRead.addEventListener("change", function () {
     check('dateRead');
 }, false);
 
 // validates grade while typing
 let grade = document.getElementById('grade');
-grade.addEventListener("change", function() {
+grade.addEventListener("change", function () {
     check('grade');
 }, false);
 
 // validates comment while typing
 let comment = document.getElementById('comment');
-comment.addEventListener("keyup", function() {
+comment.addEventListener("keyup", function () {
     check('comment');
 }, false);
 
 // validates note while typing
 let note = document.getElementById('note');
-note.addEventListener("keyup", function() {
+note.addEventListener("keyup", function () {
     check('note');
 }, false);
 

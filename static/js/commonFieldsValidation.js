@@ -21,7 +21,7 @@ function check(elementId) {
         clearTimeout(timer);
         timer = null;
     }
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
         send(elementId);
     }, 200);
 }
@@ -33,7 +33,7 @@ function send(elementId) {
         xhr.abort();
     }
     xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', function() {
+    xhr.addEventListener('load', function () {
         show(elementId);
     }, false);
     xhr.open('POST', '/' + dictionary[elementId]);
@@ -78,8 +78,8 @@ function printError(event, message) {
     }
 
     let ul = document.createElement('ul');
-    ul.setAttribute('id','errorsOutput');
-    ul.setAttribute('class','alert-block alert-error');
+    ul.setAttribute('id', 'errorsOutput');
+    ul.setAttribute('class', 'alert-block alert-error');
 
     parent.appendChild(ul)
     let li = document.createElement('li');

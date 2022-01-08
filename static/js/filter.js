@@ -2,11 +2,11 @@ let minRating = document.getElementById('minRating');
 let maxRating = document.getElementById('maxRating');
 let output = document.getElementById('ratingFilterValidation');
 
-minRating.addEventListener("change", function() {
+minRating.addEventListener("change", function () {
     validateMinMaxRating()
 });
 
-maxRating.addEventListener("change", function() {
+maxRating.addEventListener("change", function () {
     validateMinMaxRating();
 });
 

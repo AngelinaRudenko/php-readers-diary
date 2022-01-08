@@ -71,7 +71,7 @@ class Book
         }
 
         mysqli_close($connection);
-        return ceil($bookCount/$limit);
+        return ceil($bookCount / $limit);
     }
 
     /**
@@ -84,7 +84,8 @@ class Book
      * @param null $maxRating - optional parameter, by default is empty. Used for filtrating.
      * @return array - array of books
      */
-    public static function getBooks($limit, $offset, $orderBy, $minRating = null, $maxRating = null) {
+    public static function getBooks($limit, $offset, $orderBy, $minRating = null, $maxRating = null)
+    {
 
         $sql = "SELECT `bookId`, `name`, `author`, `description`, `bookCoverImage`,
                     (SELECT AVG(`grade`) FROM `userBook` 
@@ -100,9 +101,9 @@ class Book
         if ($orderBy == 'rating') {
             $sql .= " ORDER BY (SELECT AVG(`grade`) FROM `userBook` WHERE `userBook`.`bookId` = `book`.`bookId`) DESC";
         } else {
-            $sql .= " ORDER BY ".$orderBy;
+            $sql .= " ORDER BY " . $orderBy;
         }
-        $sql .= " LIMIT ".$limit." OFFSET ".$offset;
+        $sql .= " LIMIT " . $limit . " OFFSET " . $offset;
 
         $books = [];
         $connection = Db::createConnection();
@@ -113,9 +114,9 @@ class Book
         $i = 0;
         while ($row = mysqli_fetch_assoc($result)) {
             if (!empty($row['description'])) {
-                $row['description'] =  strlen($row['description']) < 100 ?
+                $row['description'] = strlen($row['description']) < 100 ?
                     $row['description'] :
-                    substr($row['description'], 0, 197).'...';
+                    substr($row['description'], 0, 197) . '...';
             }
 
             $books[$i] = array(
@@ -138,7 +139,8 @@ class Book
      * @param $userId - user id
      * @return array - array of books
      */
-    public static function getBooksNotReviewedByUser($userId) {
+    public static function getBooksNotReviewedByUser($userId)
+    {
         $books = [];
         $connection = Db::createConnection();
         $sql = "SELECT `book`.`bookId`, `book`.`name`, `book`.`author`
@@ -194,10 +196,11 @@ class Book
 
     /**
      * Validates book name and returns errors.
-     * @param $bookName  - name of book
+     * @param $bookName - name of book
      * @return array - array of errors
      */
-    public static function validateBookName($bookName) {
+    public static function validateBookName($bookName)
+    {
         $errors = [];
         if (empty(trim($bookName))) {
             array_push($errors, "Book name is required");
@@ -214,12 +217,13 @@ class Book
      * @param $bookAuthor - book author
      * @return array - array of errors
      */
-    public static function validateBookAuthor($bookAuthor) {
+    public static function validateBookAuthor($bookAuthor)
+    {
         $errors = [];
 
         $containsNumber = false;
         for ($i = 0; $i < strlen($bookAuthor); $i++) {
-            if ( ctype_digit($bookAuthor[$i]) ) {
+            if (ctype_digit($bookAuthor[$i])) {
                 $containsNumber = true;
                 break;
             }
@@ -244,7 +248,8 @@ class Book
      * @param $bookDescription - book description
      * @return array - array of errors
      */
-    public static function validateBookDescription($bookDescription) {
+    public static function validateBookDescription($bookDescription)
+    {
         $errors = [];
         if (!empty($bookDescription) && strlen($bookDescription) > 2000) {
             array_push($errors, "Description length must be no more than 2000 characters");
@@ -259,15 +264,16 @@ class Book
      * @param $maxRating - optional parameter, by default is empty. Used for filtrating.
      * @return string - WHERE clause for sql query
      */
-    private static function getWhereClauseMinMaxRating($minRating, $maxRating) {
+    private static function getWhereClauseMinMaxRating($minRating, $maxRating)
+    {
         $sql = "WHERE (SELECT AVG(`grade`) FROM `userBook` WHERE `userBook`.`bookId` = `book`.`bookId`) ";
 
         if (!empty($minRating) && !empty($maxRating)) {
-            return  $sql."BETWEEN ".$minRating." AND ".$maxRating;
+            return $sql . "BETWEEN " . $minRating . " AND " . $maxRating;
         } elseif (!empty($minRating)) {
-            return $sql.">= ".$minRating;
+            return $sql . ">= " . $minRating;
         } else /* (!empty($maxRating)) */ {
-            return $sql."<= ".$maxRating;
+            return $sql . "<= " . $maxRating;
         }
     }
 }

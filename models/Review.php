@@ -16,7 +16,7 @@ class Review
                 FROM `userBook` 
                 INNER JOIN `book` 
                 ON `userBook`.`bookId` = `book`.`bookId` 
-                WHERE `userId` = ".$userId;
+                WHERE `userId` = " . $userId;
 
         $result = mysqli_query($connection, $sql);
 
@@ -25,7 +25,7 @@ class Review
         }
 
         mysqli_close($connection);
-        return ceil($reviewCount/$limit);
+        return ceil($reviewCount / $limit);
     }
 
     /**
@@ -45,7 +45,7 @@ class Review
                 ON `userBook`.`bookId` = `book`.`bookId` 
                 WHERE `userId` = ? ";
         if ($orderBy == 'name' || $orderBy == 'author') {
-            $sql .= "ORDER BY book.".$orderBy;
+            $sql .= "ORDER BY book." . $orderBy;
         } elseif ($orderBy == 'rating') {
             $sql .= "ORDER BY (SELECT AVG(`grade`) FROM `userBook` WHERE `userBook`.`bookId` = `book`.`bookId`) DESC";
         } elseif ($orderBy == 'grade') {
@@ -53,7 +53,7 @@ class Review
         } else {
             $sql .= "ORDER BY userBook.dateRead DESC";
         }
-        $sql .= " LIMIT ".$limit." OFFSET ".$offset;
+        $sql .= " LIMIT " . $limit . " OFFSET " . $offset;
 
         $books = [];
         $connection = Db::createConnection();
@@ -91,7 +91,8 @@ class Review
      * @param $bookId - book id
      * @return array - review entity
      */
-    public static function getUserReviewByBookId($userId, $bookId) {
+    public static function getUserReviewByBookId($userId, $bookId)
+    {
         $connection = Db::createConnection();
         $sql = "SELECT `userBookId`, `dateRead`, `grade`, `comment`, `note` 
                 FROM `userBook` WHERE `userId` = ? AND `bookId` = ?";
@@ -128,7 +129,8 @@ class Review
      * @param $reviewId - review id
      * @return array - review entity
      */
-    public static function getUserBookReviewById($reviewId) {
+    public static function getUserBookReviewById($reviewId)
+    {
         $review = [];
         $connection = Db::createConnection();
         $sql = "SELECT `bookId`, `dateRead`, `grade`, `comment`, `note` 
@@ -168,7 +170,8 @@ class Review
      * @param null $userId - user id. Optional parameter.
      * @return array - array of comments
      */
-    public static function getComments($bookId, $userId = null) {
+    public static function getComments($bookId, $userId = null)
+    {
         $comments = [];
         $connection = Db::createConnection();
 
@@ -179,7 +182,7 @@ class Review
                 AND `userBook`.`userId` != ?
                 AND `comment` IS NOT NULL
                 AND `comment` != \"\"" :
-                "SELECT `username`, `comment` FROM `userBook`
+            "SELECT `username`, `comment` FROM `userBook`
                 INNER JOIN `user`
                 ON `user`.`userId` = `userBook`.`userId`
                 WHERE `bookId` = ?
@@ -341,14 +344,14 @@ class Review
             $bookId = $review['bookId'];
 
             // find if there is any more reviews for this book
-            $sql = "SELECT COUNT(`userBookId`) AS `count` FROM `userBook` WHERE `bookId` = ".$bookId;
+            $sql = "SELECT COUNT(`userBookId`) AS `count` FROM `userBook` WHERE `bookId` = " . $bookId;
             $result = mysqli_query($connection, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
                 $count = $row['count'];
             }
 
             // delete review
-            $sql = "DELETE FROM `userBook` WHERE `userBookId` = ".$reviewId;
+            $sql = "DELETE FROM `userBook` WHERE `userBookId` = " . $reviewId;
             mysqli_query($connection, $sql);
 
 
@@ -356,14 +359,14 @@ class Review
             if (isset($count) && $count == 1) {
                 $book = Book::getBook($bookId);
 
-                $sql = "DELETE FROM `book` WHERE `bookId` = ".$bookId;
+                $sql = "DELETE FROM `book` WHERE `bookId` = " . $bookId;
                 mysqli_query($connection, $sql);
 
                 $bookCoverImage = $book["bookCoverImage"];
 
                 if (!empty($book["bookCoverImage"])) {
                     $fileName = basename($bookCoverImage);
-                    unlink('uploads/'.$bookCoverImage);
+                    unlink('uploads/' . $bookCoverImage);
                     unlink('uploads/cachedBookCoverPictures/bookPage_' . $fileName);
                     unlink('uploads/cachedBookCoverPictures/bookListPage_' . $fileName);
                 }
@@ -410,7 +413,8 @@ class Review
      * @param $dateRead - date read
      * @return array - array of errors
      */
-    public static function validateDateRead($dateRead) {
+    public static function validateDateRead($dateRead)
+    {
         $errors = [];
         $now = new DateTime();
         $userEnteredDate = DateTime::createFromFormat('d/m/Y', $dateRead);
@@ -428,7 +432,8 @@ class Review
      * @param $grade - grade (rating/estimation)
      * @return array - array of errors
      */
-    public static function validateGrade($grade) {
+    public static function validateGrade($grade)
+    {
         $errors = [];
         if (!empty($grade) && $grade < 1) {
             array_push($errors, "Grade can't be less then 1");
@@ -443,7 +448,8 @@ class Review
      * @param $comment - comment
      * @return array - array of errors
      */
-    public static function validateComment($comment) {
+    public static function validateComment($comment)
+    {
         $errors = [];
         if (!empty($comment) && strlen($comment) > 2000) {
             array_push($errors, "Comment length must be no more than 2000 characters");
@@ -456,7 +462,8 @@ class Review
      * @param $note - note
      * @return array - array of errors
      */
-    public static function validateNote($note) {
+    public static function validateNote($note)
+    {
         $errors = [];
         if (!empty($note) && strlen($note) > 2000) {
             array_push($errors, "Note length must be no more than 2000 characters");

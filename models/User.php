@@ -86,7 +86,8 @@ class User
      * @param $username - username
      * @return array - array of errors
      */
-    public static function validateUsername($username) {
+    public static function validateUsername($username)
+    {
         $errors = [];
         if (empty($username)) {
             array_push($errors, "Username is required");
@@ -107,7 +108,8 @@ class User
      * @param $email - email
      * @return array - array of errors
      */
-    public static function validateEmail($email) {
+    public static function validateEmail($email)
+    {
         $errors = [];
         if (empty($email)) {
             array_push($errors, "Email is required");
@@ -124,7 +126,8 @@ class User
      * @param $password - password
      * @return array - array of errors
      */
-    public static function validatePassword($password) {
+    public static function validatePassword($password)
+    {
         $errors = [];
         if (empty($password)) {
             array_push($errors, "Password is required");

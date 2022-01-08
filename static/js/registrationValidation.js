@@ -1,12 +1,12 @@
 // validates username while typing
 let username = document.getElementById('username');
-username.addEventListener("keyup", function() {
+username.addEventListener("keyup", function () {
     check('username');
 });
 
 // validates email while typing
 let email = document.getElementById('email');
-email.addEventListener("keyup", function() {
+email.addEventListener("keyup", function () {
     check('email');
 });
 
@@ -15,7 +15,7 @@ let password = document.getElementById('password');
 password.addEventListener("keyup", function () {
     checkConfirmPassword(password.value)
 });
-password.addEventListener("keyup", function() {
+password.addEventListener("keyup", function () {
     check('password');
 });
 

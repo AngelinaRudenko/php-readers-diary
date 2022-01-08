@@ -9,7 +9,7 @@ class Image
      */
     public static function resizeAndCache($relativePath)
     {
-        $absolutePath = ROOT."/uploads/".$relativePath;
+        $absolutePath = ROOT . "/uploads/" . $relativePath;
         $imageInfo = getimagesize($absolutePath);
 
         $width = $imageInfo[0];
@@ -36,8 +36,8 @@ class Image
 
         $originalFileName = basename($absolutePath);
 
-        $result = imagejpeg($imageBooksPage, 'uploads/cachedBookCoverPictures/bookListPage_'.$originalFileName, 75);
-        return $result && imagejpeg($imageBookPage, 'uploads/cachedBookCoverPictures/bookPage_'.$originalFileName, 100);
+        $result = imagejpeg($imageBooksPage, 'uploads/cachedBookCoverPictures/bookListPage_' . $originalFileName, 75);
+        return $result && imagejpeg($imageBookPage, 'uploads/cachedBookCoverPictures/bookPage_' . $originalFileName, 100);
     }
 
     /**
@@ -46,8 +46,9 @@ class Image
      * @param $image - image
      * @return false|GdImage|resource - image
      */
-    private static function resizeImageForBookListPage($relation, $image) {
-        if ($relation <= (300/200)) { // vertical with normal width
+    private static function resizeImageForBookListPage($relation, $image)
+    {
+        if ($relation <= (300 / 200)) { // vertical with normal width
             // 300px height, original width and height relation
             $image = imagescale($image, -1, 300);
         } else { // square or horizontal or vertical with small width
@@ -70,7 +71,8 @@ class Image
      * @param $image - image
      * @return false|GdImage|resource - image
      */
-    private static function resizeImageForBookPage($relation, $image) {
+    private static function resizeImageForBookPage($relation, $image)
+    {
         if ($relation == 1) { // square
             // 300px width and height, original width and height relation
             $image = imagescale($image, 300);

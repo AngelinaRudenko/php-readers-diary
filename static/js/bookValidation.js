@@ -1,18 +1,18 @@
 // validates book name while typing
 let bookName = document.getElementById('bookName');
-bookName.addEventListener("keyup", function() {
+bookName.addEventListener("keyup", function () {
     check('bookName');
 });
 
 // validates book author while typing
 let bookAuthor = document.getElementById('bookAuthor');
-bookAuthor.addEventListener("keyup", function() {
+bookAuthor.addEventListener("keyup", function () {
     check('bookAuthor');
 });
 
 // validates book description while typing
 let bookDescription = document.getElementById('bookDescription');
-bookDescription.addEventListener("keyup", function() {
+bookDescription.addEventListener("keyup", function () {
     check('bookDescription');
 })
 
