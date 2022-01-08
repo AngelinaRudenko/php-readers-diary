@@ -2,18 +2,29 @@
 
 class Book
 {
+    /**
+     * Executes sql query to find book by its id.
+     * Also finds average rating of book according to reviews with grades (estimates).
+     * @param $id - book id
+     * @return array - book entity (book idm name, author, description, book cover image, average rating)
+     */
     public static function getBook($id)
     {
         $book = [];
         $connection = Db::createConnection();
-        $sql = "SELECT `bookId`, `name`, `author`, `description`, `bookCoverImage` FROM `book` WHERE `bookId` = ?";
+        $sql = "SELECT `bookId`, `name`, `author`, `description`, `bookCoverImage`,
+                    (SELECT AVG(`grade`) FROM `userBook` 
+                     WHERE `userBook`.`bookId` = `book`.`bookId` 
+                     AND `userBook`.`grade` != 0 
+                     AND `userBook`.`grade` IS NOT NULL) AS `avgRating`
+                FROM `book` WHERE `bookId` = ?";
 
         mysqli_begin_transaction($connection);
         try {
             $stmt = mysqli_prepare($connection, $sql);
             mysqli_stmt_bind_param($stmt, "i", $id);
             if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $bookId, $name, $author, $description, $bookCoverImage);
+                mysqli_stmt_bind_result($stmt, $bookId, $name, $author, $description, $bookCoverImage, $avgRating);
                 mysqli_stmt_fetch($stmt);
                 if (isset($bookId)) {
                     $book = array(
@@ -22,7 +33,7 @@ class Book
                         "author" => $author,
                         "description" => $description,
                         "bookCoverImage" => $bookCoverImage,
-                        "avgRating" => Review::getAvgRating($bookId)
+                        "avgRating" => isset($avgRating) ? round($avgRating, 2) : "No rating yet"
                     );
                 }
             }
@@ -36,7 +47,14 @@ class Book
         return $book;
     }
 
-    public static function getBooksCount($limit, $minRating = null, $maxRating = null)
+    /**
+     * Finds pages count for pagination.
+     * @param $limit - books per page
+     * @param null $minRating - optional parameter, by default is empty. Used for filtrating.
+     * @param null $maxRating - optional parameter, by default is empty. Used for filtrating.
+     * @return false|float - pages count
+     */
+    public static function getPagesCount($limit, $minRating = null, $maxRating = null)
     {
         $bookCount = 0;
         $connection = Db::createConnection();
@@ -56,9 +74,24 @@ class Book
         return ceil($bookCount/$limit);
     }
 
-    public static function getCommonBooks($limit, $offset, $orderBy, $minRating = null, $maxRating = null) {
+    /**
+     * Executes sql query to find list of books according to pagination, filter and sorting.
+     * Also finds average rating of each book according to reviews with grades (estimates).
+     * @param $limit - books per page
+     * @param $offset - books to skip
+     * @param $orderBy - sorting parameter
+     * @param null $minRating - optional parameter, by default is empty. Used for filtrating.
+     * @param null $maxRating - optional parameter, by default is empty. Used for filtrating.
+     * @return array - array of books
+     */
+    public static function getBooks($limit, $offset, $orderBy, $minRating = null, $maxRating = null) {
 
-        $sql = "SELECT `bookId`, `name`, `author`, `description` , `bookCoverImage` FROM `book` ";
+        $sql = "SELECT `bookId`, `name`, `author`, `description`, `bookCoverImage`,
+                    (SELECT AVG(`grade`) FROM `userBook` 
+                     WHERE `userBook`.`bookId` = `book`.`bookId` 
+                     AND `userBook`.`grade` != 0 
+                     AND `userBook`.`grade` IS NOT NULL) AS `avgRating`
+                FROM `book` ";
 
         if (!empty($minRating) || !empty($maxRating)) {
             $sql .= self::getWhereClauseMinMaxRating($minRating, $maxRating);
@@ -79,13 +112,19 @@ class Book
 
         $i = 0;
         while ($row = mysqli_fetch_assoc($result)) {
+            if (!empty($row['description'])) {
+                $row['description'] =  strlen($row['description']) < 100 ?
+                    $row['description'] :
+                    mb_substr($row['description'], 0, 197).'...';
+            }
+
             $books[$i] = array(
                 "bookId" => $row['bookId'],
                 "name" => $row['name'],
                 "author" => $row['author'],
                 "description" => $row['description'],
                 "bookCoverImage" => $row['bookCoverImage'],
-                "avgRating" => Review::getAvgRating($row['bookId']));
+                "avgRating" => isset($row['avgRating']) ? round($row['avgRating'], 2) : "No rating yet");
             $i++;
         }
 
@@ -93,6 +132,12 @@ class Book
         return $books;
     }
 
+    /**
+     * Executes sql query to find list of books that user didn't review yet.
+     * (User doesn't have review of no book from that list)
+     * @param $userId - user id
+     * @return array - array of books
+     */
     public static function getBooksNotReviewedByUser($userId) {
         $books = [];
         $connection = Db::createConnection();
@@ -124,6 +169,13 @@ class Book
         return $books;
     }
 
+    /**
+     * Validates all fields of book entity and returns errors.
+     * @param $bookName - name of book
+     * @param $bookAuthor - book author
+     * @param $bookDescription - book description
+     * @return array - array of errors
+     */
     public static function validateBook($bookName, $bookAuthor, $bookDescription)
     {
         $errors = [];
@@ -140,6 +192,11 @@ class Book
         return $errors;
     }
 
+    /**
+     * Validates book name and returns errors.
+     * @param $bookName  - name of book
+     * @return array - array of errors
+     */
     public static function validateBookName($bookName) {
         $errors = [];
         if (empty(trim($bookName))) {
@@ -152,6 +209,11 @@ class Book
         return $errors;
     }
 
+    /**
+     * Validates book author and returns errors.
+     * @param $bookAuthor - book author
+     * @return array - array of errors
+     */
     public static function validateBookAuthor($bookAuthor) {
         $errors = [];
 
@@ -177,6 +239,11 @@ class Book
         return $errors;
     }
 
+    /**
+     * Validates book description and returns errors.
+     * @param $bookDescription - book description
+     * @return array - array of errors
+     */
     public static function validateBookDescription($bookDescription) {
         $errors = [];
         if (strlen($bookDescription) > 2000) {
@@ -185,6 +252,13 @@ class Book
         return $errors;
     }
 
+    /**
+     * Generates WHERE clause string for sql query according to min and max rating parameters.
+     * At least one of parameters (min rating or max rating) must be not null.
+     * @param $minRating - optional parameter, by default is empty. Used for filtrating.
+     * @param $maxRating - optional parameter, by default is empty. Used for filtrating.
+     * @return string - WHERE clause for sql query
+     */
     private static function getWhereClauseMinMaxRating($minRating, $maxRating) {
         $sql = "WHERE (SELECT AVG(`grade`) FROM `userBook` WHERE `userBook`.`bookId` = `book`.`bookId`) ";
 

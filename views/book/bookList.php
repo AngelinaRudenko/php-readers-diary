@@ -1,9 +1,9 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
     <?php if (isset($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'lightTheme'): ?>
-    <link rel="stylesheet" href="/template/css/bookList.css"/>
-    <link rel="stylesheet" href="/template/css/validation.css">
+    <link rel="stylesheet" href="/static/css/bookList.css"/>
+    <link rel="stylesheet" href="/static/css/validation.css">
     <?php else: ?>
-        <link rel="stylesheet" href="/template/css/bookListDark.css"/>
+        <link rel="stylesheet" href="/static/css/bookListDark.css"/>
     <?php endif; ?>
     <title>Reader's diary</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
@@ -30,9 +30,15 @@
         <?php if (isset($_SESSION['commonBooks']) && count($_SESSION['commonBooks']) > 0) : ?>
             <?php foreach ($_SESSION['commonBooks'] as $book): ?>
                 <article class="card">
-                    <img class="img-book" alt="" src="<?= isset($book['bookCoverImage']) ?
-                        htmlspecialchars('/uploads/'.$book['bookCoverImage']) :
-                        '/template/defaultBookCoverImage.jpg' ?>"/>
+
+                    <img class="img-book" alt="" src="<?php
+                        if (isset($book['bookCoverImage'])) {
+                            $fileName = basename($book['bookCoverImage']);
+                            echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookListPage_' . $fileName);
+                        } else {
+                            echo '/static/bookListPage_defaultBookCoverImage.jpg';
+                        }
+                    ?>"/>
                     <div class="card-content">
                         <h2 class="book-name"><?= htmlspecialchars($book['name']) ?></h2>
                         <span>by <?= htmlspecialchars($book['author']) ?></span>
@@ -48,7 +54,7 @@
     </div>
 
 <?php include ROOT . '/views/shared/pagination.php'; ?>
-<script src="/template/js/filter.js"></script>
+<script src="/static/js/filter.js"></script>
 <?php
     unset($_SESSION['error']);
     unset($_SESSION['commonBooks']);

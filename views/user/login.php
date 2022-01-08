@@ -1,6 +1,6 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-<link rel="stylesheet" href="/template/css/registerAndLogin.css"/>
-<link rel="stylesheet" href="/template/css/validation.css">
+<link rel="stylesheet" href="/static/css/registerAndLogin.css"/>
+<link rel="stylesheet" href="/static/css/validation.css">
 <title>Log in</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 

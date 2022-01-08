@@ -1,5 +1,5 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-    <link rel="stylesheet" href="/template/css/reviewList.css"/>
+    <link rel="stylesheet" href="/static/css/reviewList.css"/>
     <title>My books</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 

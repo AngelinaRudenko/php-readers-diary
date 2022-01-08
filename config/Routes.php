@@ -1,7 +1,9 @@
 <?php
 
+/**
+ * Possible rotes
+ */
 return array(
-
     'register' => 'user/register',
     'login' => 'user/login',
     'logout' => 'user/logout',
@@ -28,5 +30,6 @@ return array(
     'validateReviewNote' => 'validation/validateReviewNote',
     'changeColorTheme' => 'style/changeColorTheme',
 
-    '' => 'book/getBookList' // default
+    // Default rote
+    '' => 'book/getBookList'
 );

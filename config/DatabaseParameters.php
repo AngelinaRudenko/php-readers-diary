@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Database credentials
+ */
 return array(
 //    'hostname' => 'localhost:3306',
 //    'username' => 'root',

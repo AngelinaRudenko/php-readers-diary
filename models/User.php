@@ -8,6 +8,14 @@ class User
     password - required (min 8, max 50)
     */
 
+    /**
+     * Executes sql query to insert new user to database.
+     * Adds success and error messages according to execution results.
+     * @param $username - username
+     * @param $email - email
+     * @param $password - password
+     * @return bool
+     */
     public static function register($username, $email, $password)
     {
         $connection = Db::createConnection();
@@ -40,6 +48,14 @@ class User
         return TRUE;
     }
 
+    /**
+     * Validates all fields of user entity and returns errors.
+     * @param $username - username
+     * @param $email - email
+     * @param $password - password (not salted)
+     * @param $confirmPassword - password that was repeated for confirmation
+     * @return array - array of errors
+     */
     public static function validateUser($username, $email, $password, $confirmPassword)
     {
         $errors = [];
@@ -65,6 +81,11 @@ class User
         return $errors;
     }
 
+    /**
+     * Validates username and returns errors.
+     * @param $username - username
+     * @return array - array of errors
+     */
     public static function validateUsername($username) {
         $errors = [];
         if (empty($username)) {
@@ -81,6 +102,11 @@ class User
         return $errors;
     }
 
+    /**
+     * Validates email and returns errors.
+     * @param $email - email
+     * @return array - array of errors
+     */
     public static function validateEmail($email) {
         $errors = [];
         if (empty($email)) {
@@ -93,6 +119,11 @@ class User
         return $errors;
     }
 
+    /**
+     * Validates password and returns errors.
+     * @param $password - password
+     * @return array - array of errors
+     */
     public static function validatePassword($password) {
         $errors = [];
         if (empty($password)) {
@@ -109,6 +140,12 @@ class User
         return $errors;
     }
 
+    /**
+     * Checks if value of user parameter is unique.
+     * @param $parameterName - name of any parameter of user entity
+     * @param $parameter - value that must be unique
+     * @return bool - is parameter unique or not
+     */
     public static function parameterIsUnique($parameterName, $parameter)
     {
         $success = FALSE;
@@ -135,6 +172,12 @@ class User
         return $success;
     }
 
+    /**
+     * Doing authorization, if finds user it in database.
+     * @param $email
+     * @param $password
+     * @return bool
+     */
     public static function authorize($email, $password)
     {
         $connection = Db::createConnection();

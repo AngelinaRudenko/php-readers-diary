@@ -1,10 +1,10 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-    <link rel="stylesheet" href="/template/css/addEditReview.css">
-    <link rel="stylesheet" href="/template/css/validation.css">
+    <link rel="stylesheet" href="/static/css/addEditReview.css">
+    <link rel="stylesheet" href="/static/css/validation.css">
     <title>Add book review</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 
-    <form class="book-review-form" action="/saveReview" method="post" enctype="multipart/form-data">
+    <form id="reviewForm" class="book-review-form" action="/saveReview" method="post" enctype="multipart/form-data">
         <input type="hidden" name="reviewId" value="<?= isset($reviewId) ? $reviewId : "" ?>">
         <?php include ROOT . '/views/shared/outputSection.php'; ?>
 
@@ -74,10 +74,10 @@
     </form>
 
 <?php if (isset($_SESSION['showBooksSection']) && $_SESSION['showBooksSection']): ?>
-<script src="/template/js/bookValidation.js"></script>
+<script src="/static/js/bookValidation.js"></script>
 <?php endif; ?>
-<script src="/template/js/reviewValidation.js"></script>
-<script src="/template/js/commonFieldsValidation.js"></script>
+<script src="/static/js/reviewValidation.js"></script>
+<script src="/static/js/commonFieldsValidation.js"></script>
 <?php
     unset($_SESSION['readBookId']);
     unset($_SESSION['commonBooks']);

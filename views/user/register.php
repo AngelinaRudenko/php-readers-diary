@@ -1,6 +1,6 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-    <link rel="stylesheet" href="/template/css/registerAndLogin.css"/>
-    <link rel="stylesheet" href="/template/css/validation.css">
+    <link rel="stylesheet" href="/static/css/registerAndLogin.css"/>
+    <link rel="stylesheet" href="/static/css/validation.css">
     <title>Register</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 
@@ -28,6 +28,6 @@
         <a href="/login">Log in</a>
     </form>
 
-<script src="/template/js/registrationValidation.js"></script>
-<script src="/template/js/commonFieldsValidation.js"></script>
+<script src="/static/js/registrationValidation.js"></script>
+<script src="/static/js/commonFieldsValidation.js"></script>
 <?php include ROOT . '/views/shared/footer.php'; ?>

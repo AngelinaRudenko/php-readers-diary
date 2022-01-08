@@ -17,6 +17,9 @@ class Router
         }
     }
 
+    /**
+     * Finds controller according to URL.
+     */
     public function run()
     {
         $uri = $this->getURI();

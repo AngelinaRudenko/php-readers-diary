@@ -1,23 +1,34 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
-    <link rel="stylesheet" href="/template/css/book.css"/>
+    <link rel="stylesheet" href="/static/css/book.css"/>
     <title>My books</title>
 <?php include ROOT . '/views/shared/navigation.php'; ?>
 
     <div class="content">
         <section class="book">
-            <img class="img-book" alt="" src="<?= isset($_SESSION['book']['bookCoverImage']) ?
-                 htmlspecialchars('/uploads/'.$_SESSION['book']['bookCoverImage']) :
-                 htmlspecialchars('/template/defaultBookCoverImage.jpg') ?>"/>
+            <img class="img-book" alt="" src="<?php
+            if (isset($_SESSION['book']['bookCoverImage'])) {
+                $fileName = basename($_SESSION['book']['bookCoverImage']);
+                echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookPage_' . $fileName);
+            } else {
+                echo '/static/bookListPage_defaultBookCoverImage.jpg';
+            }
+            ?>"/>
             <div class="card-content">
                 <h2 class="book-name"><?= htmlspecialchars($_SESSION['book']['name']) ?></h2>
                 <span>by <?= htmlspecialchars($_SESSION['book']['author']) ?></span>
                 <p>Rating: <?= $_SESSION['book']['avgRating'] ?></p>
                 <p class="book-sum"><?= htmlspecialchars($_SESSION['book']['description']) ?></p>
-                <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized'] &&
-                    !isset($_SESSION['review'])) {
-                    $_SESSION['readBookId'] = $_SESSION['book']['bookId'];
-                    echo '<a href="/addReview" class="button">Mark as read</a>';
-                } ?>
+                <?php
+                    if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']) {
+                        if (empty($_SESSION['review'])) {
+                            $_SESSION['readBookId'] = $_SESSION['book']['bookId'];
+                            echo '<a href="/addReview" class="button">Mark as read</a>';
+                        }
+                        else {
+                            echo '<a href="/editReview/'.$_SESSION['review']['userBookId'].'" class="button">Edit review</a>';
+                        }
+                    }
+                ?>
             </div>
         </section>
         <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized'] && isset($_SESSION['review']) && !empty($_SESSION['review'])): ?>

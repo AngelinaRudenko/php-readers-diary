@@ -2,7 +2,13 @@
 
 class Review
 {
-    public static function getReviewsCount($userId, $limit)
+    /**
+     * Finds pages count for pagination.
+     * @param $userId - user id
+     * @param $limit - reviews per page
+     * @return false|float - pages count
+     */
+    public static function getPagesCount($userId, $limit)
     {
         $reviewCount = 0;
         $connection = Db::createConnection();
@@ -22,7 +28,15 @@ class Review
         return ceil($reviewCount/$limit);
     }
 
-    public static function getUserBookReviews($userId, $limit, $offset, $orderBy)
+    /**
+     * Executes sql query to find user reviews according to pagination and sorting.
+     * @param $userId - user id
+     * @param $limit - reviews per page
+     * @param $offset - reviews to skip
+     * @param $orderBy - sorting parameter
+     * @return array - array of reviews
+     */
+    public static function getUserReviews($userId, $limit, $offset, $orderBy)
     {
         $sql = "SELECT `userBook`.`userBookId`, `userBook`.`bookId`, `userBook`.`dateRead`, `userBook`.`grade`, 
                 `userBook`.`comment`, `userBook`.`note`, `book`.`name`, `book`.`author` 
@@ -71,7 +85,13 @@ class Review
         return $books;
     }
 
-    public static function getUserBookReview($userId, $bookId) {
+    /**
+     * Executes sql query to find user review by book id.
+     * @param $userId - user id
+     * @param $bookId - book id
+     * @return array - review entity
+     */
+    public static function getUserReviewByBookId($userId, $bookId) {
         $connection = Db::createConnection();
         $sql = "SELECT `userBookId`, `dateRead`, `grade`, `comment`, `note` 
                 FROM `userBook` WHERE `userId` = ? AND `bookId` = ?";
@@ -103,6 +123,11 @@ class Review
         return isset($review) ? $review : [];
     }
 
+    /**
+     * Executes sql query to find user review by id.
+     * @param $reviewId - review id
+     * @return array - review entity
+     */
     public static function getUserBookReviewById($reviewId) {
         $review = [];
         $connection = Db::createConnection();
@@ -136,6 +161,13 @@ class Review
         return $review;
     }
 
+    /**
+     * Executes sql query to find book comments.
+     * If user is authorized, his comment will be shown in other page section, that's why sql query excludes user comment.
+     * @param $bookId - book id
+     * @param null $userId - user id. Optional parameter.
+     * @return array - array of comments
+     */
     public static function getComments($bookId, $userId = null) {
         $comments = [];
         $connection = Db::createConnection();
@@ -178,22 +210,16 @@ class Review
         return $comments;
     }
 
-    public static function getAvgRating($bookId) {
-        $connection = Db::createConnection();
-        $sql = "SELECT AVG(`grade`) FROM `userBook` WHERE `bookId` = ? AND `grade` != 0";
-
-        if ($stmt = mysqli_prepare($connection, $sql)) {
-            mysqli_stmt_bind_param($stmt, "i", $bookId);
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $avgRating);
-                mysqli_stmt_fetch($stmt);
-            }
-            mysqli_stmt_close($stmt);
-        }
-        mysqli_close($connection);
-        return isset($avgRating) ? round($avgRating, 2) : "No rating yet";
-    }
-
+    /**
+     * Executes sql query that saves the review of existing book.
+     * @param $userId - user id
+     * @param $bookId - book id
+     * @param $dateRead - date read
+     * @param $grade - grade (rating/estimation)
+     * @param $comment - comment
+     * @param $note - note
+     * @return int|string - review id or -1 value if something went wrong
+     */
     public static function saveReview($userId, $bookId, $dateRead, $grade, $comment, $note)
     {
         $connection = Db::createConnection();
@@ -216,6 +242,15 @@ class Review
         return isset($reviewId) ? $reviewId : -1;
     }
 
+    /**
+     * Executes sql query that updates review.
+     * @param $reviewId - review id
+     * @param $dateRead - date read
+     * @param $grade - grade (rating/estimation)
+     * @param $comment - comment
+     * @param $note - note
+     * @return mixed - original review id
+     */
     public static function updateReview($reviewId, $dateRead, $grade, $comment, $note)
     {
         $connection = Db::createConnection();
@@ -237,6 +272,19 @@ class Review
         return $reviewId;
     }
 
+    /**
+     * Executes sql query that saves new book and its review.
+     * @param $userId - user id
+     * @param $dateRead - date read
+     * @param $grade - grade (rating/estimation)
+     * @param $comment - comment
+     * @param $note - note
+     * @param $bookName - book name
+     * @param $bookAuthor - book author
+     * @param $bookDescription - book description
+     * @param $bookCover - book cover image
+     * @return array - book id and review id
+     */
     public static function saveReviewForNewBook($userId, $dateRead, $grade, $comment, $note, $bookName, $bookAuthor,
                                                 $bookDescription, $bookCover)
     {
@@ -275,6 +323,13 @@ class Review
         return isset($result) ? $result : [];
     }
 
+    /**
+     * Deletes review.
+     * If review is the last one for book, deletes book too.
+     * Also deletes all associated images with book deleted.
+     * @param $reviewId - review id
+     * @return bool
+     */
     public static function deleteReview($reviewId)
     {
         $connection = Db::createConnection();
@@ -282,43 +337,39 @@ class Review
         mysqli_begin_transaction($connection);
         try {
             // find bookId
-            $sql = "SELECT `bookId` FROM `userBook` WHERE `userBookId` = ?";
-            $stmt = mysqli_prepare($connection, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $reviewId);
-            mysqli_stmt_execute($stmt);
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $bookId);
-                mysqli_stmt_fetch($stmt);
-            }
-            mysqli_stmt_close($stmt);
+            $review = self::getUserBookReviewById($reviewId);
+            $bookId = $review['bookId'];
 
             // find if there is any more reviews for this book
-            $sql = "SELECT COUNT(`userBookId`) FROM `userBook` WHERE `bookId` = ?";
-            $stmt = mysqli_prepare($connection, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $bookId);
-            mysqli_stmt_execute($stmt);
-            if (mysqli_stmt_execute($stmt)) {
-                mysqli_stmt_bind_result($stmt, $count);
-                mysqli_stmt_fetch($stmt);
+            $sql = "SELECT COUNT(`userBookId`) AS `count` FROM `userBook` WHERE `bookId` = ".$bookId;
+            $result = mysqli_query($connection, $sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $count = $row['count'];
             }
-            mysqli_stmt_close($stmt);
 
             // delete review
-            $sql = "DELETE FROM `userBook` WHERE `userBookId` = ?";
-            $stmt = mysqli_prepare($connection, $sql);
-            mysqli_stmt_bind_param($stmt, "i", $reviewId);
-            mysqli_stmt_execute($stmt);
+            $sql = "DELETE FROM `userBook` WHERE `userBookId` = ".$reviewId;
+            mysqli_query($connection, $sql);
+
 
             // delete book if no more review exists
             if (isset($count) && $count == 1) {
-                $sql = "DELETE FROM `book` WHERE `bookId` = ?";
-                $stmt = mysqli_prepare($connection, $sql);
-                mysqli_stmt_bind_param($stmt, "i", $bookId);
-                mysqli_stmt_execute($stmt);
-            }
+                $book = Book::getBook($bookId);
 
-            mysqli_stmt_close($stmt);
+                $sql = "DELETE FROM `book` WHERE `bookId` = ".$bookId;
+                mysqli_query($connection, $sql);
+
+                $bookCoverImage = $book["bookCoverImage"];
+
+                if (!empty($book["bookCoverImage"])) {
+                    $fileName = basename($bookCoverImage);
+                    unlink('uploads/'.$bookCoverImage);
+                    unlink('uploads/cachedBookCoverPictures/bookPage_' . $fileName);
+                    unlink('uploads/cachedBookCoverPictures/bookListPage_' . $fileName);
+                }
+            }
             mysqli_commit($connection);
+
         } catch (mysqli_sql_exception $exception) {
             mysqli_rollback($connection);
         } finally {
@@ -327,6 +378,14 @@ class Review
         return TRUE;
     }
 
+    /**
+     * Validates all fields of review entity and returns errors.
+     * @param $dateRead - date read
+     * @param $grade - grade (rating/estimation)
+     * @param $comment - comment
+     * @param $note - note
+     * @return array - array of errors
+     */
     public static function validateReview($dateRead, $grade, $comment, $note)
     {
         $errors = [];
@@ -346,6 +405,11 @@ class Review
         return $errors;
     }
 
+    /**
+     * Validates date read and returns errors.
+     * @param $dateRead - date read
+     * @return array - array of errors
+     */
     public static function validateDateRead($dateRead) {
         $errors = [];
         $now = new DateTime();
@@ -359,6 +423,11 @@ class Review
         return $errors;
     }
 
+    /**
+     * Validates grade (rating/estimation) and returns errors.
+     * @param $grade - grade (rating/estimation)
+     * @return array - array of errors
+     */
     public static function validateGrade($grade) {
         $errors = [];
         if (!empty($grade) && $grade < 1) {
@@ -369,6 +438,11 @@ class Review
         return $errors;
     }
 
+    /**
+     * Validates comment and returns errors.
+     * @param $comment - comment
+     * @return array - array of errors
+     */
     public static function validateComment($comment) {
         $errors = [];
         if (strlen($comment) > 2000) {
@@ -377,6 +451,11 @@ class Review
         return $errors;
     }
 
+    /**
+     * Validates note and returns errors.
+     * @param $note - note
+     * @return array - array of errors
+     */
     public static function validateNote($note) {
         $errors = [];
         if (strlen($note) > 2000) {

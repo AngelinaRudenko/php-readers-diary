@@ -1,9 +1,12 @@
 <?php
 
+/**
+ * Automatically loads folders
+ */
 spl_autoload_register(function ($class_name) {
     $array_paths = array(
         '/models/',
-        '/components/',
+        '/components/'
     );
 
     foreach ($array_paths as $path) {

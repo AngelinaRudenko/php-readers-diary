@@ -1,0 +1,24 @@
+main {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.book-review-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.book-review-form input {
+    width: 30%;
+}
+
+.select-section {
+    display: inline-block;
+}
+
+.book-review-form select {
+    width: 50%;
+}
