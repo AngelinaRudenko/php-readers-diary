@@ -19,13 +19,16 @@ password.addEventListener("keyup", function() {
     check('password');
 });
 
+let confirmPassword = document.getElementById('confirmPassword');
+confirmPassword.addEventListener("keyup", function () {
+    checkConfirmPassword(password.value)
+});
 
 let form = document.getElementById("registrationForm");
 form.addEventListener("submit", onSubmit, true);
 
 // check if confirm password is correct
 function checkConfirmPassword(passwordValue) {
-    let confirmPassword = document.getElementById('confirmPassword');
     let elementOutput = document.getElementById("confirmPasswordValidationError");
 
     if (passwordValue === confirmPassword.value) {

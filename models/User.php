@@ -20,7 +20,7 @@ class User
     {
         $connection = Db::createConnection();
         $sql = "INSERT INTO `user` (`username`, `email`, `password`) 
-                VALUES (?, ?, ?, ?)";
+                VALUES (?, ?, ?)";
         mysqli_begin_transaction($connection);
         try {
             $stmt = mysqli_prepare($connection, $sql);
