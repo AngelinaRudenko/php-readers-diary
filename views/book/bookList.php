@@ -1,6 +1,6 @@
 <?php include ROOT . '/views/shared/header.php'; ?>
     <link rel="stylesheet" href="/static/css/validation.css">
-<?php if (isset($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'lightTheme'): ?>
+<?php if (!isset($_COOKIE['colorTheme']) || empty($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'lightTheme'): ?>
     <link rel="stylesheet" href="/static/css/bookList.css"/>
 <?php else: ?>
     <link rel="stylesheet" href="/static/css/bookListDark.css"/>
