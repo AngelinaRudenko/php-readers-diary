@@ -24,7 +24,7 @@ class User
         mysqli_begin_transaction($connection);
         try {
             $stmt = mysqli_prepare($connection, $sql);
-            mysqli_stmt_bind_param($stmt, "ssss", $username, $email, $password);
+            mysqli_stmt_bind_param($stmt, "sss", $username, $email, $password);
             mysqli_stmt_execute($stmt);
 
             unset($_SESSION['userAuthorized']);
