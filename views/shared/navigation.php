@@ -7,10 +7,10 @@
     <nav>
         <select id="colorTheme" class="nav-select">
             <option value="lightTheme"
-                <?= !isset($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'lightTheme' ? 'selected' : '' ?>
+                <?= empty($_SESSION["colorTheme"]) || $_SESSION["colorTheme"] == 'lightTheme' ? 'selected' : '' ?>
             >Light theme</option>
             <option value="darkTheme"
-                <?= isset($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'darkTheme' ? 'selected' : '' ?>
+                <?= !empty($_SESSION["colorTheme"]) && $_SESSION["colorTheme"] == 'darkTheme' ? 'selected' : '' ?>
             >Dark theme</option>
         </select>
         <?php if (!empty($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']["isAuthorized"]) : ?>
