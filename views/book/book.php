@@ -5,14 +5,16 @@
 
     <div class="content">
         <section class="book">
-            <img class="img-book" alt="" src="<?php
-            if (isset($_SESSION['book']['bookCoverImage'])) {
-                $fileName = basename($_SESSION['book']['bookCoverImage']);
-                echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookPage_' . $fileName);
-            } else {
-                echo '/uploads/cachedBookCoverPictures/bookListPage_defaultBookCoverImage.jpg';
-            }
-            ?>"/>
+            <div>
+                <img class="img-book" alt="" src="<?php
+                if (isset($_SESSION['book']['bookCoverImage'])) {
+                    $fileName = basename($_SESSION['book']['bookCoverImage']);
+                    echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookPage_' . $fileName);
+                } else {
+                    echo '/uploads/cachedBookCoverPictures/bookListPage_defaultBookCoverImage.jpg';
+                }
+                ?>"/>
+            </div>
             <div class="card-content">
                 <h2 class="book-name"><?= !empty($_SESSION['book']['name']) ? htmlspecialchars($_SESSION['book']['name']) : ""?></h2>
                 <span>by <?= !empty($_SESSION['book']['author']) ? htmlspecialchars($_SESSION['book']['author']) : ""?></span>
