@@ -120,7 +120,9 @@ class ReviewController
             if (isset($result) && !empty($result)) {
                 $bookId = $result['bookId'];
                 $reviewId = $result['reviewId'];
-                Image::resizeAndCache($path);
+                if (!empty($path)) {
+                    Image::resizeAndCache($path);
+                }
                 $_SESSION['success'] = 'Review saved successfully';
                 self::actionEdit($reviewId);
                 return True;
