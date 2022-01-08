@@ -11,12 +11,12 @@
         <label for="username">Display name <span class="required">*</span></label>
         <span id="usernameValidationError" class="small-text"></span>
         <input id="username" type="text" name="username" placeholder="Enter username"
-               value="<?= !empty($username) ? htmlspecialchars($username) : ""?>"
+               value="<?= !empty($username) ? htmlspecialchars($username) : "" ?>"
                pattern="^[A-z\d\.]{6,50}" required>
         <label for="email">Email <span class="required">*</span></label>
         <span id="emailValidationError" class="small-text"></span>
         <input id="email" type="email" name="email" placeholder="Enter email"
-               value="<?= !empty($email) ? htmlspecialchars($email) : ""?>" required>
+               value="<?= !empty($email) ? htmlspecialchars($email) : "" ?>" required>
         <label for="password">Password <span class="required">*</span></label>
         <span id="passwordValidationError" class="small-text"></span>
         <input id="password" type="password" name="password" placeholder="Enter password"
@@ -28,6 +28,6 @@
         <a href="/login">Log in</a>
     </form>
 
-<script src="/static/js/registrationValidation.js"></script>
-<script src="/static/js/commonFieldsValidation.js"></script>
+    <script src="/static/js/registrationValidation.js"></script>
+    <script src="/static/js/commonFieldsValidation.js"></script>
 <?php include ROOT . '/views/shared/footer.php'; ?>

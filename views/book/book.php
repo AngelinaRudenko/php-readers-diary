@@ -19,15 +19,14 @@
                 <p>Rating: <?= !empty($_SESSION['book']['avgRating']) ? $_SESSION['book']['avgRating'] : "" ?></p>
                 <p class="book-sum"><?= !empty($_SESSION['book']['description']) ? htmlspecialchars($_SESSION['book']['description']) : "" ?></p>
                 <?php
-                    if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']) {
-                        if (empty($_SESSION['review'])) {
-                            $_SESSION['readBookId'] = $_SESSION['book']['bookId'];
-                            echo '<a href="/addReview" class="button">Mark as read</a>';
-                        }
-                        else {
-                            echo '<a href="/editReview/'.$_SESSION['review']['userBookId'].'" class="button">Edit review</a>';
-                        }
+                if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']) {
+                    if (empty($_SESSION['review'])) {
+                        $_SESSION['readBookId'] = $_SESSION['book']['bookId'];
+                        echo '<a href="/addReview" class="button">Mark as read</a>';
+                    } else {
+                        echo '<a href="/editReview/' . $_SESSION['review']['userBookId'] . '" class="button">Edit review</a>';
                     }
+                }
                 ?>
             </div>
         </section>
@@ -54,7 +53,7 @@
     </div>
 
 <?php
-    unset($_SESSION['review']);
-    unset($_SESSION['book']);
-    include ROOT . '/views/shared/footer.php';
+unset($_SESSION['review']);
+unset($_SESSION['book']);
+include ROOT . '/views/shared/footer.php';
 ?>

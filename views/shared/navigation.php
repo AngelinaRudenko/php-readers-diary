@@ -8,18 +8,20 @@
         <select id="colorTheme" class="nav-select">
             <option value="lightTheme"
                 <?php
-                    if (!isset($_COOKIE['colorTheme']) || empty($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'lightTheme') {
-                        echo 'selected';
-                    }
+                if (!isset($_COOKIE['colorTheme']) || empty($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'lightTheme') {
+                    echo 'selected';
+                }
                 ?>
-            >Light theme</option>
+            >Light theme
+            </option>
             <option value="darkTheme"
                 <?php
-                    if (!empty($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'darkTheme') {
-                        echo 'selected';
-                    }
+                if (!empty($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'darkTheme') {
+                    echo 'selected';
+                }
                 ?>
-            >Dark theme</option>
+            >Dark theme
+            </option>
         </select>
         <?php if (!empty($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']["isAuthorized"]) : ?>
             <a href="/reviews">My reviews</a>

@@ -9,7 +9,7 @@
                 <article class="card">
                     <img class="img-book"
                          src="<?= isset($book['bookCoverImage']) ?
-                             "uploads/".$book['bookCoverImage'] : '/template/defaultBookCoverImage.jpg' ?>"
+                             "uploads/" . $book['bookCoverImage'] : '/template/defaultBookCoverImage.jpg' ?>"
                          alt=""/>
                     <div class="card-content">
                         <h2 class="book-name"><?= htmlspecialchars($book['name']) ?></h2>

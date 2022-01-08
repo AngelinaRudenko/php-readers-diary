@@ -14,9 +14,7 @@
         </select>
         <button type="submit">Apply</button>
     </form>
-
     <a href="/addReview" class="button">Add book review</a>
-
     <div class="book-list">
         <?php if (!empty($_SESSION['userReviews'])) : ?>
             <?php foreach ($_SESSION['userReviews'] as $book): ?>
@@ -37,8 +35,8 @@
         <?php endif; ?>
     </div>
 
-<?php include ROOT . '/views/shared/pagination.php'; ?>
 <?php
-    unset($_SESSION['userReviews']);
-    include ROOT . '/views/shared/footer.php';
+include ROOT . '/views/shared/pagination.php';
+include ROOT . '/views/shared/footer.php';
+unset($_SESSION['userReviews']);
 ?>
