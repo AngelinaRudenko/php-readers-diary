@@ -115,7 +115,7 @@ class Book
             if (!empty($row['description'])) {
                 $row['description'] =  strlen($row['description']) < 100 ?
                     $row['description'] :
-                    mb_substr($row['description'], 0, 197).'...';
+                    substr($row['description'], 0, 197).'...';
             }
 
             $books[$i] = array(
