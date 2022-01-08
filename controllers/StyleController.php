@@ -7,10 +7,10 @@ class StyleController
      * @return bool - just for redirect
      */
     public function actionChangeColorTheme() {
-
-        unset($_SESSION["colorTheme"]);
-        $_SESSION["colorTheme"] = $_POST['colorTheme'];
-
+        // delete cookie
+        setcookie("colorTheme", "", time() - 3600);
+        // set cookie for a month
+        setcookie("colorTheme", $_POST['colorTheme'], time()+(60*60*24*30));
         return True;
     }
 }
