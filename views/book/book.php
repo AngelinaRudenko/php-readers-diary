@@ -10,7 +10,7 @@
                 $fileName = basename($_SESSION['book']['bookCoverImage']);
                 echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookPage_' . $fileName);
             } else {
-                echo '/static/bookListPage_defaultBookCoverImage.jpg';
+                echo '/uploads/cachedBookCoverPictures/bookListPage_defaultBookCoverImage.jpg';
             }
             ?>"/>
             <div class="card-content">

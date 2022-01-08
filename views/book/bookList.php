@@ -36,7 +36,7 @@
                             $fileName = basename($book['bookCoverImage']);
                             echo htmlspecialchars('/uploads/cachedBookCoverPictures/bookListPage_' . $fileName);
                         } else {
-                            echo '/static/bookListPage_defaultBookCoverImage.jpg';
+                            echo '/uploads/cachedBookCoverPictures/bookListPage_defaultBookCoverImage.jpg';
                         }
                     ?>"/>
                     <div class="card-content">
