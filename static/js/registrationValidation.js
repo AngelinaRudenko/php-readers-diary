@@ -55,7 +55,7 @@ function onSubmit(event) {
         printError(event, "Email is too long");
     } else if (!password.value) {
         printError(event, "Password is required");
-    } else if (!password.value !== password.value.trim() || password.value.indexOf(" ") > 0) {
+    } else if (password.value !== password.value.trim() || password.value.indexOf(" ") > 0) {
         printError(event, "Password should not have spaces or tabs");
     } else if (/[\'^£$%&*()}{@#~?><>,|=_+¬-]/.test(password.value)) {
         printError(event, "Password should not have special characters");
