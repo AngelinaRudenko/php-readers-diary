@@ -35,9 +35,9 @@ function onSubmitReviewValidation(event) {
         printError(event, "Grade can't be less then 1");
     } else if (grade.value && grade.value > 10) {
         printError(event, "Grade can't be more then 10");
-    } else if (comment.value.length > 2000) {
+    } else if (comment.value && comment.value.length > 2000) {
         printError(event, "Comment length must be no more than 2000 characters");
-    } else if (note.value.length > 2000) {
+    } else if (note.value && note.value.length > 2000) {
         printError(event, "Note length must be no more than 2000 characters");
     }
 }

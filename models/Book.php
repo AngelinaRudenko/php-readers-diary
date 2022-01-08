@@ -246,7 +246,7 @@ class Book
      */
     public static function validateBookDescription($bookDescription) {
         $errors = [];
-        if (strlen($bookDescription) > 2000) {
+        if (!empty($bookDescription) && strlen($bookDescription) > 2000) {
             array_push($errors, "Description length must be no more than 2000 characters");
         }
         return $errors;

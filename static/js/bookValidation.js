@@ -37,7 +37,7 @@ function onSubmit(event) {
         printError(event, "Author name length must be at least 6 characters");
     } else if (bookAuthor.value.length > 50) {
         printError(event, "Author name length must be no more than 50 characters");
-    } else if (bookDescription.value.length > 2000) {
+    } else if (bookDescription.value && bookDescription.value.length > 2000) {
         printError(event, "Description length must be no more than 2000 characters");
     } else if (!dateRead.value) {
         printError(event, "Date read is required");
@@ -47,9 +47,9 @@ function onSubmit(event) {
         printError(event, "Grade can't be less then 1");
     } else if (grade.value && grade.value > 10) {
         printError(event, "Grade can't be more then 10");
-    } else if (comment.value.length > 2000) {
+    } else if (comment.value && comment.value.length > 2000) {
         printError(event, "Comment length must be no more than 2000 characters");
-    } else if (note.value.length > 2000) {
+    } else if (note.value && note.value.length > 2000) {
         printError(event, "Note length must be no more than 2000 characters");
     }
 }

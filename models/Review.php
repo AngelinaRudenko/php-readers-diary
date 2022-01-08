@@ -445,7 +445,7 @@ class Review
      */
     public static function validateComment($comment) {
         $errors = [];
-        if (strlen($comment) > 2000) {
+        if (!empty($comment) && strlen($comment) > 2000) {
             array_push($errors, "Comment length must be no more than 2000 characters");
         }
         return $errors;
@@ -458,7 +458,7 @@ class Review
      */
     public static function validateNote($note) {
         $errors = [];
-        if (strlen($note) > 2000) {
+        if (!empty($note) && strlen($note) > 2000) {
             array_push($errors, "Note length must be no more than 2000 characters");
         }
         return $errors;
