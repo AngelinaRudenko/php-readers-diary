@@ -1,6 +1,7 @@
 {
   "require": {
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-mysqli": "*"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "^205.0"

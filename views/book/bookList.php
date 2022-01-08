@@ -40,10 +40,10 @@
                         }
                     ?>"/>
                     <div class="card-content">
-                        <h2 class="book-name"><?= htmlspecialchars($book['name']) ?></h2>
-                        <span>by <?= htmlspecialchars($book['author']) ?></span>
-                        <p>Rating: <?= $book['avgRating'] ?></p>
-                        <p class="book-sum"><?= htmlspecialchars($book['description']) ?></p>
+                        <h2 class="book-name"><?= !empty($book['name']) ? htmlspecialchars($book['name']) : "" ?></h2>
+                        <span>by <?= !empty($book['author']) ? htmlspecialchars($book['author']) : "" ?></span>
+                        <p>Rating: <?= !empty($book['avgRating']) ? $book['avgRating'] : "" ?></p>
+                        <p class="book-sum"><?= !empty($book['description']) ? htmlspecialchars($book['description']) : "" ?></p>
                         <a href="/book/<?= $book['bookId'] ?>" class="button">See more</a>
                     </div>
                 </article>

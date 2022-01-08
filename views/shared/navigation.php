@@ -13,7 +13,7 @@
                 <?= isset($_COOKIE['colorTheme']) && $_COOKIE['colorTheme'] == 'darkTheme' ? 'selected' : '' ?>
             >Dark theme</option>
         </select>
-        <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']["isAuthorized"]) : ?>
+        <?php if (!empty($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']["isAuthorized"]) : ?>
             <a href="/reviews">My reviews</a>
             <a href="/logout">Log out</a>
         <?php else : ?>

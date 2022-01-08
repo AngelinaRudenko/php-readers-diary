@@ -14,10 +14,10 @@
             }
             ?>"/>
             <div class="card-content">
-                <h2 class="book-name"><?= htmlspecialchars($_SESSION['book']['name']) ?></h2>
-                <span>by <?= htmlspecialchars($_SESSION['book']['author']) ?></span>
-                <p>Rating: <?= $_SESSION['book']['avgRating'] ?></p>
-                <p class="book-sum"><?= htmlspecialchars($_SESSION['book']['description']) ?></p>
+                <h2 class="book-name"><?= !empty($_SESSION['book']['name']) ? htmlspecialchars($_SESSION['book']['name']) : ""?></h2>
+                <span>by <?= !empty($_SESSION['book']['author']) ? htmlspecialchars($_SESSION['book']['author']) : ""?></span>
+                <p>Rating: <?= !empty($_SESSION['book']['avgRating']) ? $_SESSION['book']['avgRating'] : "" ?></p>
+                <p class="book-sum"><?= !empty($_SESSION['book']['description']) ? htmlspecialchars($_SESSION['book']['description']) : "" ?></p>
                 <?php
                     if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized']) {
                         if (empty($_SESSION['review'])) {
@@ -34,10 +34,10 @@
         <?php if (isset($_SESSION['userAuthorized']) && $_SESSION['userAuthorized'] && isset($_SESSION['review']) && !empty($_SESSION['review'])): ?>
             <section class="feedback">
                 <h2>My feedback</h2>
-                <p><strong class="book-name">Date read:</strong> <?= $_SESSION['review']['dateRead'] ?></p>
-                <p><strong class="book-name">My grade:</strong> <?= $_SESSION['review']['grade'] ?></p>
-                <p><strong class="book-name">Comment:</strong> <?= htmlspecialchars($_SESSION['review']['comment']) ?></p>
-                <p><strong class="book-name">Note:</strong> <?= htmlspecialchars($_SESSION['review']['note']) ?></p>
+                <p><strong class="book-name">Date read:</strong> <?= !empty($_SESSION['review']['dateRead']) ? $_SESSION['review']['dateRead'] : "" ?></p>
+                <p><strong class="book-name">My grade:</strong> <?= !empty($_SESSION['review']['grade']) ? $_SESSION['review']['grade'] : "" ?></p>
+                <p><strong class="book-name">Comment:</strong> <?= !empty($_SESSION['review']['comment']) ? htmlspecialchars($_SESSION['review']['comment']) : "" ?></p>
+                <p><strong class="book-name">Note:</strong> <?= !empty($_SESSION['review']['note']) ? htmlspecialchars($_SESSION['review']['note']) : "" ?></p>
             </section>
         <?php endif; ?>
         <?php if (isset($_SESSION['comments']) && !empty($_SESSION['comments'])): ?>
@@ -45,8 +45,8 @@
                 <h2>Comments</h2>
                 <?php foreach ($_SESSION['comments'] as $comment): ?>
                 <div class="comment">
-                    <p class="name"><?= htmlspecialchars($comment['username']) ?></p>
-                    <p class="text"><?= htmlspecialchars($comment['comment']) ?></p>
+                    <p class="name"><?= !empty($comment['username']) ? htmlspecialchars($comment['username']) : "" ?></p>
+                    <p class="text"><?= !empty($comment['comment']) ? htmlspecialchars($comment['comment']) : "" ?></p>
                 </div>
                 <?php endforeach; ?>
             </section>

@@ -21,12 +21,12 @@
         <?php if (!empty($_SESSION['userReviews'])) : ?>
             <?php foreach ($_SESSION['userReviews'] as $book): ?>
                 <article class="book-row">
-                    <h2 class="book-name"><?= htmlspecialchars($book['name']) ?></h2>
-                    <span>by <?= htmlspecialchars($book['author']) ?></span>
-                    <p><strong class="book-name">Date read:</strong> <?= $book['dateRead'] ?></p>
-                    <p><strong class="book-name">My grade:</strong> <?= $book['grade'] ?></p>
-                    <p><strong class="book-name">Comment:</strong> <?= htmlspecialchars($book['comment']) ?></p>
-                    <p><strong class="book-name">Note:</strong> <?= htmlspecialchars($book['note']) ?></p>
+                    <h2 class="book-name"><?= !empty($book['name']) ? htmlspecialchars($book['name']) : "" ?></h2>
+                    <span>by <?= !empty($book['author']) ? htmlspecialchars($book['author']) : ""?></span>
+                    <p><strong class="book-name">Date read:</strong> <?= !empty($book['dateRead']) ? $book['dateRead'] : ""?></p>
+                    <p><strong class="book-name">My grade:</strong> <?= !empty($book['grade']) ? $book['grade'] : "" ?></p>
+                    <p><strong class="book-name">Comment:</strong> <?= !empty($book['comment']) ? htmlspecialchars($book['comment']) : ""?></p>
+                    <p><strong class="book-name">Note:</strong> <?= !empty($book['note']) ? htmlspecialchars($book['note']) : "" ?></p>
                     <a href="/book/<?= $book['bookId'] ?>" class="button">See book</a>
                     <a href="/editReview/<?= $book['userBookId'] ?>" class="button">Edit</a>
                     <a href="/deleteReview/<?= $book['userBookId'] ?>" class="button">Delete</a>
