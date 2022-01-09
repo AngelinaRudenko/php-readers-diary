@@ -23,8 +23,7 @@
             <label for="bookDescription">Book description</label>
             <span id="bookDescriptionValidationError" class="small-text"></span>
             <textarea id="bookDescription" rows="10" cols="30" name="bookDescription"
-                      placeholder="Enter book description"
-                      pattern=".{,2000}"
+                      placeholder="Enter book description" maxlength="2000"
             ><?= !empty($bookDescription) ? htmlspecialchars($bookDescription) : "" ?></textarea>
             <label for="bookCover">Book cover</label>
             <input id="bookCover" type="file" name="bookCover">
