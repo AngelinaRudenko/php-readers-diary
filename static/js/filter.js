@@ -12,7 +12,8 @@ maxRating.addEventListener("change", function () {
 
 // validate min and max rating values
 function validateMinMaxRating() {
-    if (maxRating && maxRating.value && maxRating.value < minRating.value) {
+    if (maxRating && maxRating.value && minRating && minRating.value &&
+        parseInt(minRating.value) > parseInt(maxRating.value)) {
         minRating.classList.add('invalid');
         minRating.classList.remove('valid');
         maxRating.classList.add('invalid');

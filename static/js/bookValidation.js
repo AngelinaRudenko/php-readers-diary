@@ -43,9 +43,9 @@ function onSubmit(event) {
         printError(event, "Date read is required");
     } else if (new Date(dateRead.value) > Date.now()) {
         printError(event, "Date read can't be in future");
-    } else if (grade.value && grade.value < 1) {
+    } else if (grade.value && parseInt(grade.value) < 1) {
         printError(event, "Grade can't be less then 1");
-    } else if (grade.value && grade.value > 10) {
+    } else if (grade.value && parseInt(grade.value) > 10) {
         printError(event, "Grade can't be more then 10");
     } else if (comment.value && comment.value.length > 2000) {
         printError(event, "Comment length must be no more than 2000 characters");
