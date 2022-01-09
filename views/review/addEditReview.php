@@ -33,6 +33,7 @@
             <label for="bookId">Book <span class="required">*</span></label>
             <div class="select-section">
                 <select id="bookId" name="bookId" <?= !empty($reviewId) ? "disabled" : "required" ?>>
+                    <option disabled value="">Select book</option>
                     <?php
                     foreach ($_SESSION['books'] as $book) {
                         echo "<option value=\"" . $book["bookId"] . "\"";
@@ -56,19 +57,18 @@
         <label for="grade">Grade</label>
         <span id="gradeValidationError" class="small-text"></span>
         <input id="grade" type="number" name="grade" placeholder="Enter grade"
-               value="<?= !empty($grade) ? $grade : "" ?>"
-               min="1" max="10" pattern="[d]{1,2}">
+               value="<?= !empty($grade) ? $grade : "" ?>" min="1" max="10">
         <label for="comment">Comment</label>
         <span id="commentValidationError" class="small-text"></span>
         <textarea id="comment" rows="10" cols="30" name="comment"
                   placeholder="Enter public comment. It will be visible for everyone."
-                  pattern=".{,2000}"
+                  maxlength="2000"
         ><?= !empty($comment) ? htmlspecialchars($comment) : "" ?></textarea>
         <label for="note">Note</label>
         <span id="noteValidationError" class="small-text"></span>
         <textarea id="note" rows="10" cols="30" name="note"
                   placeholder="Enter private note. It will be visible only to you."
-                  pattern=".{,2000}"
+                  maxlength="2000"
         ><?= !empty($note) ? htmlspecialchars($note) : "" ?></textarea>
         <button type="submit">Save</button>
     </form>

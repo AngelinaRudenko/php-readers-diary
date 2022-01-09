@@ -12,11 +12,9 @@
         <span>Filter by rating</span>
         <span id="ratingFilterValidation" class="small-text"><?= empty($_SESSION['error']) ? '' : $_SESSION['error'] ?></span>
         <input id="minRating" type="number" name="minRating" placeholder="Min"
-               value="<?= !empty($minRating) ? $minRating : "" ?>"
-               min="1" max="10" pattern="[d]{1,2}">
+               value="<?= !empty($minRating) ? $minRating : "" ?>" min="1" max="10">
         <input id="maxRating" type="number" name="maxRating" placeholder="Max"
-               value="<?= !empty($maxRating) ? $maxRating : "" ?>"
-               min="1" max="10" pattern="[d]{1,2}">
+               value="<?= !empty($maxRating) ? $maxRating : "" ?>" min="1" max="10">
         <span>Sort by</span>
         <select id="orderBy" name="orderBy">
             <option value="name" <?= empty($orderBy) || $orderBy == 'name' ? 'selected' : '' ?>>Book name</option>
